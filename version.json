@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
-  "url": "https://github.com/smoke-detector/itea-km-releases/releases/download/v0.3.1/itea-km.bin",
-  "notes": "Full factory reset (BOOT 60s), typed reset countdown, refined LED alarm, larger mouse jiggle."
+  "notes": "HP, Logitech, and Dell keyboard/mouse identity choices on the Device page.",
+  "url": "https://github.com/smoke-detector/itea-km-releases/releases/download/v0.3.2/itea-km.bin",
+  "version": "0.3.2"
 }
