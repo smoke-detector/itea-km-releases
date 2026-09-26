@@ -1,5 +1,4 @@
 {
-  "notes": "HP, Logitech, and Dell keyboard/mouse identity choices on the Device page.",
-  "url": "https://github.com/smoke-detector/itea-km-releases/releases/download/v0.3.2/itea-km.bin",
-  "version": "0.3.2"
+  "version": "0.3.3",
+  "url": "https://smoke-detector.github.io/itea-km-releases/itea-km.bin"
 }
