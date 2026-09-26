@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
-  "url": "https://github.com/smoke-detector/itea-km-releases/releases/download/v0.3.0/itea-km.bin",
-  "notes": "Web-page updates, offline manual, optional splash."
+  "version": "0.3.1",
+  "url": "https://github.com/smoke-detector/itea-km-releases/releases/download/v0.3.1/itea-km.bin",
+  "notes": "Full factory reset (BOOT 60s), typed reset countdown, refined LED alarm, larger mouse jiggle."
 }
