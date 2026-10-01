@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ITEA-KM</title>
+<style>
+:root{--bg:#fff;--text:#1b2733;--muted:#5b6b7a;--line:#d9e1e8;--accent:#1f6fd1;--code:#f3f6f9}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1620;--text:#e3edf5;--muted:#8aa1b4;--line:#23384a;--accent:#5aaeff;--code:#132230}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header,main{max-width:860px;margin:0 auto;padding:0 16px}
+header{padding-top:28px}
+h1{margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 16px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0;border-bottom:1px solid var(--line);padding-bottom:12px}
+nav a,nav button{font:inherit;color:var(--accent);background:none;border:1px solid var(--line);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+nav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.support{border:1px solid var(--line);border-radius:12px;padding:16px;margin:8px 0 24px}
+.support h2{margin:0 0 6px;font-size:18px}
+.support p{margin:0 0 12px;color:var(--muted)}
+.doc{padding-bottom:48px}
+.doc h1,.doc h2,.doc h3{margin-top:1.6em}
+.doc code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}
+.doc pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto}
+.doc pre code{padding:0;background:none}
+.doc table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}
+.doc th,.doc td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <h1>ITEA-KM</h1>
+  <p class="sub">USB and Bluetooth keyboard/mouse appliance: paste profiles, remote control, keep-awake.</p>
+  <nav>
+    <button id="t-manual" class="active">Manual</button>
+    <button id="t-flash">Flashing guide</button>
+    <a href="https://github.com/smoke-detector/itea-km-releases/releases/latest">Latest firmware</a>
+  </nav>
+</header>
+<main>
+  <section class="support" id="support">
+    <h2>Support ITEA-KM</h2>
+    <p>If this project saves you time, you can chip in. Entirely optional.</p>
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <stripe-buy-button
+      buy-button-id="buy_btn_1ULczv0pztoyWL25uxVgmBTf"
+      publishable-key="pk_live_51SHA8G0pztoyWL25Q2ObsZwfjAPPlfujb97mFD8pXzI22tunkLFWyCmIjkraVNcDd4qFPExoMmslr4AfxYGewJM100UKBAKMmD">
+    </stripe-buy-button>
+    <p style="margin-top:12px">Button not showing? <a href="https://donate.stripe.com/eVq6oz0LU7ucgX19KE57W00" rel="noopener">Donate here</a>.</p>
+  </section>
+  <article class="doc" id="doc">Loading…</article>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script>
+const docs = {manual: 'MANUAL.md', flash: 'FLASHING.md'};
+const el = document.getElementById('doc');
+async function show(which) {
+  document.getElementById('t-manual').classList.toggle('active', which === 'manual');
+  document.getElementById('t-flash').classList.toggle('active', which === 'flash');
+  el.textContent = 'Loading…';
+  try {
+    const r = await fetch(docs[which], {cache: 'no-cache'});
+    if (!r.ok) throw new Error(r.status);
+    const md = await r.text();
+    el.innerHTML = window.marked ? marked.parse(md) : '<pre></pre>';
+    if (!window.marked) el.firstChild.textContent = md;
+  } catch (e) {
+    el.innerHTML = 'Could not load the document. <a href="' + docs[which] + '">Open the raw file</a>.';
+  }
+  history.replaceState(null, '', '#' + which);
+}
+document.getElementById('t-manual').onclick = () => show('manual');
+document.getElementById('t-flash').onclick = () => show('flash');
+show(location.hash === '#flash' ? 'flash' : 'manual');
+</script>
+</body>
+</html>
